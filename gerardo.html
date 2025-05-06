@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+
+  <!-- Importando MathJax para mostrar las fórmulas matemáticas de manera adecuada -->
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <style>
+    /* Fondo oscuro y gradiente */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(45deg, #2c3e50, #34495e);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: #ecf0f1;
+      margin-top: 20px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: #ecf0f1;
+    }
+
+    /* Contenedor principal */
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 20px auto;
+      max-height: 90vh;
+      overflow-y: scroll;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Estilo de la barra de desplazamiento */
+    .container::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    .container::-webkit-scrollbar-track {
+      background: #34495e;
+    }
+
+    .container::-webkit-scrollbar-thumb {
+      background-color: #1abc9c;
+      border-radius: 10px;
+      border: 2px solid #34495e;
+    }
+
+    .container::-webkit-scrollbar-thumb:hover {
+      background-color: #16a085;
+    }
+
+    /* Contenedor de los pasos */
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    /* Estilo del primer óvulo (representa la fórmula completa) */
+    .step-box-first {
+      background-color: #e74c3c; /* Color destacado para el primer óvulo */
+      border-radius: 50%;
+      padding: 40px;
+      width: 270px;
+      height: 270px;
+      margin: 20px 0;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.8rem;
+      color: #ecf0f1;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
+    /* Animación de aparición */
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step-box-first { animation-delay: 0.2s; }
+
+    /* Estilo de los otros óvulos */
+    .step-box {
+      background-color: #34495e;
+      border-radius: 50%;
+      padding: 30px;
+      width: 250px;
+      height: 250px;
+      margin: 20px 0;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      color: #ecf0f1;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
+    .step-box:nth-child(2) { animation-delay: 0.4s; }
+    .step-box:nth-child(3) { animation-delay: 0.6s; }
+    .step-box:nth-child(4) { animation-delay: 0.8s; }
+    .step-box:nth-child(5) { animation-delay: 1s; }
+
+    /* Estilo de las cajas cuadradas debajo de los óvulos */
+    .square-box {
+      background: linear-gradient(45deg, #1abc9c, #16a085);
+      padding: 20px;
+      width: 220px;
+      text-align: center;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-top: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 30px;
+    }
+
+    /* Estilo para las explicaciones */
+    .explanation {
+      font-size: 1.2rem;
+      color: #ecf0f1;
+      margin-top: 10px;
+      width: 80%;
+      margin: 10px auto;
+      background: rgba(44, 62, 80, 0.7);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Título de la fórmula */
+    .formula-title {
+      font-size: 1.5rem;
+      color: #ecf0f1;
+      margin-bottom: 30px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Título principal -->
+    <h1>Desglose paso a paso </h1>
+
+    <!-- Título de la fórmula -->
+    <div class="formula-title">
+      <p></p>
+    </div>
+
+    <!-- Contenedor de pasos con las animaciones -->
+    <div class="steps-container">
+      <!-- Paso 1: Mostrar \( e^{(x^2 + 2)} \) (representación completa) -->
+      <div class="step-box-first" id="step1">
+        <p>\( e^{(x^2 + 2)} \)</p>
+      </div>
+      <p class="explanation">Este es el resultado final de la operación. En el siguiente desglose veremos cómo llegar a esta fórmula final paso a paso.</p>
+
+      <!-- Paso 2: Mostrar \( x \) -->
+      <div class="step-box" id="step2">
+        <p>\( x \)</p>
+      </div>
+      <div class="square-box">
+        <p>\( ( )^2 \)</p>
+      </div>
+      <p class="explanation">Aquí colocamos la variable \( x \). Debajo de ella, colocamos los paréntesis elevados al cuadrado \( ( )^2 \), lo que indica que esta parte de la expresión será elevada al cuadrado más adelante.</p>
+
+      <!-- Paso 3: \( x^2 \) -->
+      <div class="step-box" id="step3">
+        <p>\( x^2 \)</p>
+      </div>
+      <div class="square-box">
+        <p>\( + 2 \)</p>
+      </div>
+      <p class="explanation">Después, elevamos \( x \) al cuadrado, obteniendo \( x^2 \), y agregamos el número constante \( 2 \), completando el término \( x^2 + 2 \).</p>
+
+      <!-- Paso 4: \( (x^2 + 2) \) -->
+      <div class="step-box" id="step4">
+        <p>\( (x^2 + 2) \)</p>
+      </div>
+      <div class="square-box">
+        <p>\( e^{(x^2 + 2)} \)</p>
+      </div>
+      <p class="explanation">Finalmente, agrupamos \( x^2 + 2 \) dentro de paréntesis, colocándolo como el exponente de la base \( e \). Esta es la forma final de la expresión: \( e^{(x^2 + 2)} \).</p>
+
+    </div>
+  </div>
+
+</body>
+</html>
