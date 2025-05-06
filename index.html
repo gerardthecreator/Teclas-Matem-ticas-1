@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
+  <title>Desglose paso a paso</title>
 
   <!-- Importando MathJax para mostrar las fórmulas matemáticas de manera adecuada -->
   <script type="text/javascript" async
@@ -11,14 +11,14 @@
   </script>
 
   <style>
-    /* Fondo oscuro y gradiente */
+    /* Fondo pulsante más rápido de negro a plateado */
     body {
       margin: 0;
       padding: 0;
       font-family: 'Arial', sans-serif;
-      background: linear-gradient(45deg, #2c3e50, #34495e);
+      background: linear-gradient(45deg, #000000, #bdc3c7);
       background-size: 400% 400%;
-      animation: gradientAnimation 15s ease infinite;
+      animation: gradientAnimation 5s ease infinite;
       color: #fff;
       display: flex;
       justify-content: center;
@@ -38,11 +38,6 @@
       font-size: 2.5rem;
       color: #ecf0f1;
       margin-top: 20px;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      color: #ecf0f1;
     }
 
     /* Contenedor principal */
@@ -100,12 +95,12 @@
       font-size: 1.8rem;
       color: #ecf0f1;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      opacity: 0;
       transform: translateY(30px);
-      animation: fadeInUp 0.8s forwards;
+      opacity: 0;
+      animation: fadeInUp 0.5s forwards, moveIn 1s ease forwards;
     }
 
-    /* Animación de aparición */
+    /* Animación de entrada para el primer óvulo */
     @keyframes fadeInUp {
       to {
         opacity: 1;
@@ -113,9 +108,19 @@
       }
     }
 
-    .step-box-first { animation-delay: 0.2s; }
+    /* Animación para el movimiento de los ovarios */
+    @keyframes moveIn {
+      0% {
+        transform: translateY(-100px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
 
-    /* Estilo de los otros óvulos */
+    /* Animación de los otros ovarios */
     .step-box {
       background-color: #34495e;
       border-radius: 50%;
@@ -132,13 +137,13 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       opacity: 0;
       transform: translateY(30px);
-      animation: fadeInUp 0.8s forwards;
+      animation: moveIn 1s ease forwards, fadeInUp 0.5s forwards;
     }
 
-    .step-box:nth-child(2) { animation-delay: 0.4s; }
-    .step-box:nth-child(3) { animation-delay: 0.6s; }
-    .step-box:nth-child(4) { animation-delay: 0.8s; }
-    .step-box:nth-child(5) { animation-delay: 1s; }
+    .step-box:nth-child(2) { animation-delay: 0.3s; }
+    .step-box:nth-child(3) { animation-delay: 0.5s; }
+    .step-box:nth-child(4) { animation-delay: 0.7s; }
+    .step-box:nth-child(5) { animation-delay: 0.9s; }
 
     /* Estilo de las cajas cuadradas debajo de los óvulos */
     .square-box {
@@ -152,7 +157,13 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       margin-bottom: 30px;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.5s forwards;
     }
+
+    .square-box:nth-child(2) { animation-delay: 1.1s; }
+    .square-box:nth-child(3) { animation-delay: 1.3s; }
 
     /* Estilo para las explicaciones */
     .explanation {
@@ -165,6 +176,13 @@
       padding: 15px;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Efectos al pasar el mouse sobre los óvulos y las cajas cuadradas */
+    .step-box:hover, .square-box:hover {
+      transform: translateY(-10px);
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
 
     /* Título de la fórmula */
@@ -180,7 +198,7 @@
 
   <div class="container">
     <!-- Título principal -->
-    <h1>Desglose paso a paso </h1>
+    <h1>Desglose paso a paso</h1>
 
     <!-- Título de la fórmula -->
     <div class="formula-title">
@@ -224,6 +242,18 @@
 
     </div>
   </div>
+
+  <script>
+    // Agregar animaciones dinámicas con JavaScript
+    document.querySelectorAll('.step-box').forEach((el) => {
+      el.addEventListener('mouseover', () => {
+        el.style.transform = 'scale(1.1)';
+      });
+      el.addEventListener('mouseout', () => {
+        el.style.transform = 'scale(1)';
+      });
+    });
+  </script>
 
 </body>
 </html>
