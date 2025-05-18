@@ -1,259 +1,220 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Desglose paso a paso</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Proporciones Múltiples Explicadas</title>
 
-  <!-- Importando MathJax para mostrar las fórmulas matemáticas de manera adecuada -->
-  <script type="text/javascript" async
-    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
 
   <style>
-    /* Fondo pulsante más rápido de negro a plateado */
     body {
       margin: 0;
-      padding: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(45deg, #000000, #bdc3c7);
-      background-size: 400% 400%;
-      animation: gradientAnimation 5s ease infinite;
-      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #ffcc00, #ff6600);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100%;
-      text-align: center;
-      overflow: hidden;
+      min-height: 100vh;
+      color: #333;
     }
 
-    @keyframes gradientAnimation {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      color: #ecf0f1;
-      margin-top: 20px;
-    }
-
-    /* Contenedor principal */
-    .container {
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 500px;
       width: 90%;
-      max-width: 1000px;
-      margin: 20px auto;
-      max-height: 90vh;
-      overflow-y: scroll;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Estilo de la barra de desplazamiento */
-    .container::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    .container::-webkit-scrollbar-track {
-      background: #34495e;
-    }
-
-    .container::-webkit-scrollbar-thumb {
-      background-color: #1abc9c;
-      border-radius: 10px;
-      border: 2px solid #34495e;
-    }
-
-    .container::-webkit-scrollbar-thumb:hover {
-      background-color: #16a085;
-    }
-
-    /* Contenedor de los pasos */
-    .steps-container {
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      margin-top: 40px;
+      justify-content: space-between;
+      min-height: 60vh;
+      transition: all 0.4s ease;
+      position: relative;
     }
 
-    /* Estilo del primer óvulo (representa la fórmula completa) */
-    .step-box-first {
-      background-color: #e74c3c; /* Color destacado para el primer óvulo */
-      border-radius: 50%;
-      padding: 40px;
-      width: 270px;
-      height: 270px;
-      margin: 20px 0;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.8rem;
-      color: #ecf0f1;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-      transform: translateY(30px);
-      opacity: 0;
-      animation: fadeInUp 0.5s forwards, moveIn 1s ease forwards;
+    .step-title {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #d35400;
+      margin-bottom: 1rem;
     }
 
-    /* Animación de entrada para el primer óvulo */
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .step-content {
+      font-size: 1.05rem;
+      line-height: 1.6;
     }
 
-    /* Animación para el movimiento de los ovarios */
-    @keyframes moveIn {
-      0% {
-        transform: translateY(-100px);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
+    .step-content strong {
+      color: #000;
     }
 
-    /* Animación de los otros ovarios */
-    .step-box {
-      background-color: #34495e;
-      border-radius: 50%;
-      padding: 30px;
-      width: 250px;
-      height: 250px;
-      margin: 20px 0;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.5rem;
-      color: #ecf0f1;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      opacity: 0;
-      transform: translateY(30px);
-      animation: moveIn 1s ease forwards, fadeInUp 0.5s forwards;
-    }
-
-    .step-box:nth-child(2) { animation-delay: 0.3s; }
-    .step-box:nth-child(3) { animation-delay: 0.5s; }
-    .step-box:nth-child(4) { animation-delay: 0.7s; }
-    .step-box:nth-child(5) { animation-delay: 0.9s; }
-
-    /* Estilo de las cajas cuadradas debajo de los óvulos */
-    .square-box {
-      background: linear-gradient(45deg, #1abc9c, #16a085);
-      padding: 20px;
-      width: 220px;
-      text-align: center;
-      font-size: 1.2rem;
-      color: #fff;
-      margin-top: 15px;
+    .math-block {
+      background: #fef9e7;
+      border-left: 5px solid #f39c12;
+      padding: 0.5rem 1rem;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-      margin-bottom: 30px;
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.5s forwards;
+      margin: 1rem 0;
+      font-family: monospace;
     }
 
-    .square-box:nth-child(2) { animation-delay: 1.1s; }
-    .square-box:nth-child(3) { animation-delay: 1.3s; }
+    .nav-buttons {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+    }
 
-    /* Estilo para las explicaciones */
-    .explanation {
-      font-size: 1.2rem;
-      color: #ecf0f1;
-      margin-top: 10px;
-      width: 80%;
-      margin: 10px auto;
-      background: rgba(44, 62, 80, 0.7);
-      padding: 15px;
+    button {
+      background: #e67e22;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.4rem;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Efectos al pasar el mouse sobre los óvulos y las cajas cuadradas */
-    .step-box:hover, .square-box:hover {
-      transform: translateY(-10px);
+      font-size: 1rem;
       cursor: pointer;
-      transition: transform 0.3s ease;
+      transition: background 0.3s ease;
     }
 
-    /* Título de la fórmula */
-    .formula-title {
-      font-size: 1.5rem;
-      color: #ecf0f1;
-      margin-bottom: 30px;
+    button:hover {
+      background: #d35400;
     }
 
+    @media (max-width: 480px) {
+      .step-title {
+        font-size: 1.2rem;
+      }
+
+      .step-content {
+        font-size: 0.95rem;
+      }
+    }
   </style>
 </head>
 <body>
-
-  <div class="container">
-    <!-- Título principal -->
-    <h1>Desglose paso a paso</h1>
-
-    <!-- Título de la fórmula -->
-    <div class="formula-title">
-      <p></p>
+  <div class="card" id="stepCard">
+    <div class="step-title" id="stepTitle">Paso 1: ¿Qué es esta ley?</div>
+    <div class="step-content" id="stepContent">
+      La <strong>Ley de las Proporciones Múltiples</strong> fue propuesta por <strong>John Dalton</strong>.<br><br>
+      Esta ley dice que:<br>
+      <em>“Si un mismo elemento se combina con otro para formar dos o más compuestos diferentes, las cantidades de uno que se combinan con una cantidad fija del otro están en proporciones simples de números enteros.”</em>
     </div>
 
-    <!-- Contenedor de pasos con las animaciones -->
-    <div class="steps-container">
-      <!-- Paso 1: Mostrar \( e^{(x^2 + 2)} \) (representación completa) -->
-      <div class="step-box-first" id="step1">
-        <p>\( e^{(x^2 + 2)} \)</p>
-      </div>
-      <p class="explanation">Este es el resultado final de la operación. En el siguiente desglose veremos cómo llegar a esta fórmula final paso a paso.</p>
-
-      <!-- Paso 2: Mostrar \( x \) -->
-      <div class="step-box" id="step2">
-        <p>\( x \)</p>
-      </div>
-      <div class="square-box">
-        <p>\( ( )^2 \)</p>
-      </div>
-      <p class="explanation">Aquí colocamos la variable \( x \). Debajo de ella, colocamos los paréntesis elevados al cuadrado \( ( )^2 \), lo que indica que esta parte de la expresión será elevada al cuadrado más adelante.</p>
-
-      <!-- Paso 3: \( x^2 \) -->
-      <div class="step-box" id="step3">
-        <p>\( x^2 \)</p>
-      </div>
-      <div class="square-box">
-        <p>\( + 2 \)</p>
-      </div>
-      <p class="explanation">Después, elevamos \( x \) al cuadrado, obteniendo \( x^2 \), y agregamos el número constante \( 2 \), completando el término \( x^2 + 2 \).</p>
-
-      <!-- Paso 4: \( (x^2 + 2) \) -->
-      <div class="step-box" id="step4">
-        <p>\( (x^2 + 2) \)</p>
-      </div>
-      <div class="square-box">
-        <p>\( e^{(x^2 + 2)} \)</p>
-      </div>
-      <p class="explanation">Finalmente, agrupamos \( x^2 + 2 \) dentro de paréntesis, colocándolo como el exponente de la base \( e \). Esta es la forma final de la expresión: \( e^{(x^2 + 2)} \).</p>
-
+    <div class="nav-buttons">
+      <button onclick="prevStep()" id="prevBtn" disabled>Anterior</button>
+      <button onclick="nextStep()" id="nextBtn">Siguiente</button>
     </div>
   </div>
 
   <script>
-    // Agregar animaciones dinámicas con JavaScript
-    document.querySelectorAll('.step-box').forEach((el) => {
-      el.addEventListener('mouseover', () => {
-        el.style.transform = 'scale(1.1)';
-      });
-      el.addEventListener('mouseout', () => {
-        el.style.transform = 'scale(1)';
-      });
-    });
-  </script>
+    const steps = [
+      {
+        title: "Paso 1: ¿Qué es esta ley?",
+        content: `
+          La <strong>Ley de las Proporciones Múltiples</strong> fue propuesta por <strong>John Dalton</strong>.<br><br>
+          Esta ley dice que:<br>
+          <em>“Si un mismo elemento se combina con otro para formar dos o más compuestos diferentes, las cantidades de uno que se combinan con una cantidad fija del otro están en proporciones simples de números enteros.”</em>
+        `
+      },
+      {
+        title: "Paso 2: Nuestro problema",
+        content: `
+          Tenemos dos compuestos de <strong>fósforo (P)</strong> y <strong>cloro (Cl)</strong>.<br><br>
+          👉 <strong>Compuesto 1:</strong> 1,000 g de P con 3,4333 g de Cl<br>
+          👉 <strong>Compuesto 2:</strong> 2,500 g de P con 14,308 g de Cl
+        `
+      },
+      {
+        title: "Paso 3: Igualamos el fósforo",
+        content: `
+          Para comparar, necesitamos que en ambos casos haya la <strong>misma cantidad de fósforo</strong>.<br><br>
+          Elegimos trabajar con <strong>1 gramo de fósforo</strong> en cada caso.
+        `
+      },
+      {
+        title: "Paso 4: Calculamos cuántos gramos de Cl se combinan con 1 g de P",
+        content: `
+          📘 <strong>Compuesto 1:</strong><br>
+          <div class="math-block">\\( \\frac{3.4333}{1.000} = 3.4333 \\)</div>
+          📘 <strong>Compuesto 2:</strong><br>
+          <div class="math-block">\\( \\frac{14.308}{2.500} = 5.7232 \\)</div>
+          Así que tenemos:<br>
+          – 3.4333 g de Cl por 1 g de P (Compuesto 1)<br>
+          – 5.7232 g de Cl por 1 g de P (Compuesto 2)
+        `
+      },
+      {
+        title: "Paso 5: Comparamos estas masas",
+        content: `
+          Para aplicar la ley, comparamos cuántas veces es mayor una masa respecto a la otra:<br><br>
+          <div class="math-block">
+          \\( \\frac{5.7232}{3.4333} \\approx 1.666... \\)
+          </div>
+          Esto significa que el Compuesto 2 tiene aproximadamente <strong>1.666 veces más cloro</strong> que el Compuesto 1, si el fósforo es el mismo.
+        `
+      },
+      {
+        title: "Paso 6: ¿Qué significa 1.666...?",
+        content: `
+          El número <strong>1.666...</strong> es una <em>fracción decimal infinita</em>.<br><br>
+          Si lo escribimos como fracción exacta:<br>
+          <div class="math-block">
+            \\( 1.666... = \\frac{5}{3} \\)
+          </div>
+          Esto significa que por cada <strong>3 partes de cloro</strong> en el Compuesto 1, el Compuesto 2 tiene <strong>5 partes</strong>.
+        `
+      },
+      {
+        title: "Paso 7: Conclusión Final",
+        content: `
+          Las masas de cloro que se combinan con la misma cantidad de fósforo están en proporción de:<br>
+          <div class="math-block">\\( 5 : 3 \\)</div>
+          🎉 <strong>Esto es una proporción de números enteros simples.</strong><br><br>
+          ✔️ Por lo tanto, <strong>se cumple la Ley de las Proporciones Múltiples.</strong>
+        `
+      }
+    ];
 
+    let currentStep = 0;
+    const titleEl = document.getElementById("stepTitle");
+    const contentEl = document.getElementById("stepContent");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+
+    function renderStep() {
+      const step = steps[currentStep];
+      titleEl.innerHTML = step.title;
+      contentEl.innerHTML = step.content;
+      MathJax.typeset(); // Reprocesar MathJax
+
+      prevBtn.disabled = currentStep === 0;
+      nextBtn.textContent = currentStep === steps.length - 1 ? "Finalizar" : "Siguiente";
+    }
+
+    function nextStep() {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        renderStep();
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        renderStep();
+      }
+    }
+
+    renderStep();
+  </script>
 </body>
 </html>
